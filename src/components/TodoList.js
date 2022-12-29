@@ -3,44 +3,23 @@ import {
   useEffect,
   useState
 } from "react";
+import useFecth from "../hooks/useFetch";
+import Todo from "./Todo";
+import './main.module.scss'
 // dotenv.config();
 // require('dotenv').config();
 function TodoList() {
 
   const [loading, setLoading] = useState(true)
-  const [todos, setTodo] = useState([])
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(`https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos`, {
-          method: 'GET',
-          headers: {
-            'content-type': 'application/json',
-            'apikey': process.env.REACT_APP_API_KEY,
-            'username': 'KDT3_BaeHyunSoo'
-          }
-        })
-        const todoList = await res.json()
-        console.log(todoList)
-        setTodo(todoList)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    fetchData()
-    // setTodo('0')
-  }, [])
+  const todos = useFecth(`https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos`)
 
   return (
-    <div>
-      {/* {console.log(todos)} */}
+    <div className="todolist-container">
       {loading ? <strong>Loading...</strong> : null}
-      <div>TodoList</div>
       {todos.map(todo => (
-        <div key={todo.id}>{todo.title}</div>
+        <Todo todo={todo} key={todo.id} />
       ))}
-      {/* {todos} */}
     </div>
   )
 }

@@ -2,7 +2,7 @@ import Header from './components/Header';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import TodoList from './components/TodoList';
 import EmptyPage from './components/EmptyPage';
-import './App.css';
+import './App.scss';
 
 function App() {
   return (
